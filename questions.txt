@@ -1,0 +1,4 @@
+How do I add an origin for "webhook notifications from API" 
+   I think I need this for javascript origins
+
+What exactly are APIkeys and client ID's?
