@@ -11,9 +11,9 @@ makeApiCallForRoom = function(){
 	request.execute(function(resp) {
 	    var startTimes = []
 	    var endTimes = []
-	   
+	    
 	    for(var i=0;i<resp.items.length;i++){
-		
+		console.log(resp)
 		startTimes.push(resp.items[i].start.dateTime)
 		endTimes.push(resp.items[i].end.dateTime)
 		//console.log(resp.items[i])
@@ -36,6 +36,11 @@ makeApiCallForDate = function(){
     }
 			
 }
+
+//output: Room
+//        Starttime
+//        EndTime
+//        line break
 /*
 What am I thinking right now?The keyboard is loud. I have a parallel arrays of start times and endtimes, perhaps we could create our own event object and have those times stored in that, and then keep a list of events. Either way, we have a method of storing the times that a room is busy. Now, in order to display that we'll have to create a quick method that will display our table of dates vs times. should this table display only a week? we'll see, but probably. In order to make this display, we'll probs want a function that builds us a table with no values and then add them in after. that will be big. JQUERY will be good for that. 
 Things to do:

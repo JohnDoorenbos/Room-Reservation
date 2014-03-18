@@ -8,8 +8,9 @@ handleClientLoad = function() {
     makeApiCallForRoom()
 }
 
-
-
+checkAuth = function() {
+    gapi.auth.authorize({client_id: clientId, scope: scopes, immdeiate: true},handleAuthResult)
+}
 
 
 
@@ -32,9 +33,7 @@ handleClientLoad = function() {
 
 
 ////////////////////////////////////
-checkAuth = function() {
-    gapi.auth.authorize({client_id: clientId, scope: scopes, immdeiate: true},handleAuthResult)
-}
+
 
 handleAuthResult= function(authResult){
     var authorizeButton = document.getElementById("authorize_button")
