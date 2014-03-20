@@ -1,0 +1,13 @@
+/* This file contains (for now) the function that will be used to create the table that
+   displays what time are reserved */
+
+
+drawTableForRoom = function() {//may require a parameter addition
+    for( var i = 0; i<7;i++){
+	grid = document.getElementById("grid")
+	tr = document.createElement("tr")
+	
+    }
+
+    
+}

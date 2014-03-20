@@ -28,35 +28,37 @@ makeApiCallForRoom = function(){
 }
     
 makeApiCallForDate = function(){
-    var selectedDate = "2014-03-13"
-    for( var key in idDictionary){
+    var selectedDate = "2014-03-20"
+    var counter = 0 //used to rememdy asynchronous problems.
+    var eventList = []
+    for( var key in idDictionary) {
 	console.log(key)
-
-	gapi.client.load('calendar', 'v3', function(){
-		var request = gapi.client.calendar.events.list({
-			'calendarId' : idDictionary[key]})
-		console.log(request)
-
-		request.execute(function(resp) {
-			//	if resp.items[x].start.dateTime = 
-			var dateArray = []
+	
+	
+	gapi.client.load('calendar', 'v3', function() { //function isn't called until we get information back. (function() is the callback function)
+	    var request = gapi.client.calendar.events.list({
+		'calendarId' : idDictionary[roomList[counter]]}) //note remember dictionaries are unordered, so you can't call the 'ith" element of the dictionary
+	    console.log(request)
+	    counter += 1
+	    request.execute(function(resp) {
+		//	if resp.items[x].start.dateTime = 
+		var dateArray = []
 		for(var i=0;i<resp.items.length;i++){
-			  dateArray = resp.items[i].start.dateTime.split("T")
-			  date = dateArray[0]
-			  console.log(date)
-
-			  if(date == selectedDate) {
-			      
-			      console.log(resp.items[i].summary + "This one works: " + date)
-			  }
+		    dateArray = resp.items[i].start.dateTime.split("T")
+		    date = dateArray[0]
+		    console.log(date)
+		    
+		    if(date == selectedDate) {
+			eventList.push(resp.items[i])
+			console.log(resp.items[i].summary + "This one works: " + date)
+		    }
 		}
-		    })
 	    })
-
+	})	
     }
 }
-    
 
+//make a list maybe a couple of global variables, state information. shared objects.
 //output: Room
 //        Starttime
 //        EndTime
