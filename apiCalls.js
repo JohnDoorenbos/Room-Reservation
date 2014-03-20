@@ -6,7 +6,7 @@ makeApiCallForRoom = function(){
 	var request = gapi.client.calendar.events.list({
 	    //eventually the calender id will have to be chosen based on which calender someone wants to display.
 	    // 'calendarId' : 'luther.edu_quvl61clrh2gn04kpr49mcg7d8@group.calendar.google.com'})
-	    'calendarId' : idDictionary[selectedRoom]})
+		'calendarId' : idDictionary[selectedRoom]})
 	
 	request.execute(function(resp) {
 	    var startTimes = []
@@ -26,16 +26,36 @@ makeApiCallForRoom = function(){
     })
     
 }
-
+    
 makeApiCallForDate = function(){
-    date = "Some dateTime object thing that we will be able to compare to dateTimes in calendars"
-    for( var x in idDictionary){
+    var selectedDate = "2014-03-13"
+    for( var key in idDictionary){
+	console.log(key)
+
 	gapi.client.load('calendar', 'v3', function(){
-	    x = "Do stuff here" //see the function above as a reference
-	})
+		var request = gapi.client.calendar.events.list({
+			'calendarId' : idDictionary[key]})
+		console.log(request)
+
+		request.execute(function(resp) {
+			//	if resp.items[x].start.dateTime = 
+			var dateArray = []
+		for(var i=0;i<resp.items.length;i++){
+			  dateArray = resp.items[i].start.dateTime.split("T")
+			  date = dateArray[0]
+			  console.log(date)
+
+			  if(date == selectedDate) {
+			      
+			      console.log(resp.items[i].summary + "This one works: " + date)
+			  }
+		}
+		    })
+	    })
+
     }
-			
 }
+    
 
 //output: Room
 //        Starttime
