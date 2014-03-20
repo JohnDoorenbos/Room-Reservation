@@ -1,7 +1,7 @@
 //This file contains various "boilerplate methods to check that the user is logged in and to handle authorization"
 
 
-handleClientLoad = function() {
+handleClientLoad = function() {  //Call this function when testing
     gapi.client.setApiKey(apiKey)
     window.setTimeout(checkAuth,1)
     //checkAuth() //maybe don't need this line
