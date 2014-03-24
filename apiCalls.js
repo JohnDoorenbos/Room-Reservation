@@ -39,7 +39,7 @@ makeApiCallForDate = function(){
 	    var request = gapi.client.calendar.events.list({
 		'calendarId' : idDictionary[roomList[counter]]}) //note remember dictionaries are unordered, so you can't call the 'ith" element of the dictionary
 	    console.log(request)
-	    counter += 1
+	    counter += 1 //could events come in at the "same" time?
 	    request.execute(function(resp) {
 		//	if resp.items[x].start.dateTime = 
 		var dateArray = []
@@ -57,6 +57,8 @@ makeApiCallForDate = function(){
 	})	
     }
 }
+
+//have one call initiate the next (if blah.next)
 
 //make a list maybe a couple of global variables, state information. shared objects.
 //output: Room
