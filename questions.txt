@@ -2,3 +2,13 @@ How do I add an origin for "webhook notifications from API"
    I think I need this for javascript origins
 
 What exactly are APIkeys and client ID's?
+
+
+
+
+What do I want to do today?
+     Options 
+     	     - make a drop down tab that allows you to choose room
+     	     - display some kind of grid.
+	     - mess around with table layout a bit
+	     - 
