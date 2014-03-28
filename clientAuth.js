@@ -2,10 +2,14 @@
 
 
 handleClientLoad = function() {  //Call this function when testing
+    console.log("handleClientLoad()")
+    
     gapi.client.setApiKey(apiKey)
     window.setTimeout(checkAuth,1)
     //checkAuth() //maybe don't need this line
+    //makeApiCallForDate()
     makeApiCallForRoom()
+
 }
 
 checkAuth = function() {

@@ -31,6 +31,55 @@ Cell = function(i,j){
 
 }
 
+DateClass = function(selectedDate){
+    this.date = getDate()
+    if(selectedDate != undefined){
+	this.date = date
+    }
+
+    this.setDate = function(newDate){
+	this.date = newDate //this may be an unnecessary function
+    }
+    this.getDate = function(){
+	return this.date
+    }
+}
+
+
+
+
+
+getDate = function(newDate){
+
+    if( newDate != undefined){
+	var today = newDate
+	var mm = today.getMonth()
+    }
+    
+    else{
+	var today = new Date()
+	var mm = today.getMonth()+1 //January is 0!
+    }
+    var dd = today.getDate()
+    
+    
+    
+    var yyyy = today.getFullYear()
+    
+    if(dd<10) {
+	dd='0'+dd
+    } 
+    
+    if(mm<10) {
+	mm='0'+mm
+    } 
+    
+    return today = yyyy+'-'+mm+'-'+dd
+}
+
+
+
+
 /*The following are many variables that will be used throughout the application*/
 
 
@@ -43,7 +92,7 @@ var idDictionary = {"Olin 102" : 'luther.edu_32d3jjc84gn5u25i4jji0c8d6o@group.ca
 
 var roomList = ["Olin 102", "Valders 206"] //for some reason I think this may be useful....
 
-var selectedRoom = "Olin 102"
+var selectedRoom = "Valders 206"
 
 //Although we will be able to synch up room names with the names that we choose for the keys of our JS object, is may be difficult to get them to line up in real life.
 
@@ -53,4 +102,11 @@ var selectedRoom = "Olin 102"
 
 var lstOfCells = new ListOfCells()
 var lstOfTableCells = new ListOfTableCells()
+var lstOfTableRows = []
 
+setLists = function(){
+    lstOfCells = new ListOfCells()
+    lstOfTableCells = new ListOfTableCells()
+    lstOfTableRows = []
+}
+var defaultStartDate = "k"
