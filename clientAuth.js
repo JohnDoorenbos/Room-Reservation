@@ -16,6 +16,22 @@ checkAuth = function() {
     gapi.auth.authorize({client_id: clientId, scope: scopes, immdeiate: true},handleAuthResult)
 }
 
+handleAuthResult= function(authResult){
+    var authorizeButton = document.getElementById("authorize_button")
+    if (authResult && !authResult.error) {
+	authorizeButton.style.visibility = "hidden"
+	makeApiCall();
+    } 
+    else{
+	authorizeButton.style.visibility = ''
+	authorizeButton.onclick = handleAuthClick
+    }
+}
+
+handleAuthClick = function(event){
+    gapi.auth.authorize({client_id : clientId, scope : scopes, immediate : false},handleAuthResult )
+    return false
+}
 
 
 
@@ -38,21 +54,4 @@ checkAuth = function() {
 
 ////////////////////////////////////
 
-
-handleAuthResult= function(authResult){
-    var authorizeButton = document.getElementById("authorize_button")
-    if (authResult && !authResult.error) {
-	authorizeButton.style.visibility = "hidden"
-	makeApiCall();
-    } 
-    else{
-	authorizeButton.style.visibility = ''
-	authorizeButton.onclick = handleAuthClick
-    }
-}
-
-handleAuthClick = function(event){
-    gapi.auth.authorize({client_id : clientId, scope : scopes, immediate : false},handleAuthResult )
-    return false
-}
 ///////////////////////////////////////

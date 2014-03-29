@@ -1,4 +1,18 @@
-table, td, tr {
+table{
     border : 1px solid black;
     border-spacing: 0px;
+   
 }
+
+td {
+    border : 1px solid black;
+    border-spacing: 0px;
+    width : 10px;
+}
+
+tr {
+    border : 1px solid black;
+    border-spacing: 0px;
+    
+}
+

@@ -2,7 +2,7 @@
 ListOfCells = function(){ //Contains Cell-type objects. 
     this.lst = []
     this.find = function(i,j){
-	return this.lst[(i-1)*24 + (j-1)] //24 is the number of columns (may eventually get larger)
+	return this.lst[(i-1)*96 + (j-1)] //24 is the number of columns (may eventually get larger)
     }
     this.append = function(cell){
 	this.lst.unshift(cell)
@@ -13,7 +13,7 @@ ListOfCells = function(){ //Contains Cell-type objects.
 ListOfTableCells = function(){ //Contains td-type objects
     this.lst = []
     this.find = function(i,j){
-	return this.lst[(i-1)*24 + (j-1)] //24 is the number of columns (may eventually get larger)
+	return this.lst[(i-1)*96 + (j-1)] //24 is the number of columns (may eventually get larger)
     }
     this.append = function(cell){
 	this.lst.unshift(cell)

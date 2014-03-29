@@ -9,13 +9,45 @@ timeToCellNumber = function(time){ //This function depends on how much time each
     timeDecomp = time.split(":") //decomposes the time string into the hour and minutes
     var cellNumber = 0
     //console.log((timeDecomp[0]-6)*2)
-
-    cellNumber += (timeDecomp[0]-6)*2 
-    if(timeDecomp[1] == 00){cellNumber--}
+    cellNumber = (Number(timeDecomp[0])*4+Number(timeDecomp[1])/15)+1
+//    cellNumber += timeDecomp[0]*4-timeDecomp/15//(timeDecomp[0]-6)*2 
+    //if(timeDecomp[1] == 00){cellNumber--}
     return cellNumber
 }
+militaryTimeToCivilianTime = function(hour){  //ASK A QUESTION ABOUT THIS DAMN FUNCTION
+    var time = (hour%12)
+    //console.log("hour = ", hour, " time= ",  time)
+    if(hour/12 >= 1){
+	if(time == 0 || hour == 0){
+	    
+	    //console.log("before ", time, "  ",time+"pm")
+	    time = 12 
+	    console.log("after ", time, " ", time+"pm")
+	}
+	return time +"pm"
+    }
+    else{
+	return (time+"am")
+    }
+    
+}
 
-
+drawingNumbers = function(){
+    var grid = document.getElementById("grid")
+    var tr = grid.insertRow()
+    for(var i = 23;i>-1;i--){
+	var td = tr.insertCell()
+	td.innerHTML = militaryTimeToCivilianTime(i)
+	////////////////
+	if(i == 0){
+	    td.innerHTML = 12+"am" //THIS SHOULD NOT BE NECESSARY. I HAVE NO IDEA WHAT IS HAPPENING
+	}
+	////////////////
+	td.colSpan = "4"
+    }
+    var head = tr.insertCell()
+    head.style.width = "100px"
+}
 
 
 
@@ -50,7 +82,7 @@ drawTableForRoom = function(startTimes,endTimes) {//may require a parameter addi
 	
 	tr.onmouseover = function(){console.log(this.date)}
 
-	for( var j = 24; j>=1; j--){ //note: 24 is the number of half an hour time slot there are. 
+	for( var j = 96; j>=1; j--){ //note: 24 is the number of half an hour time slot there are. 
 	    td = tr.insertCell()
 
 	    cell = new Cell(i,j)
@@ -60,7 +92,7 @@ drawTableForRoom = function(startTimes,endTimes) {//may require a parameter addi
 	    td.cell = cell
 	    
 	    td.onmouseover = function(){console.log(this.cell.row, this.cell.col)} //for testing
-	    var label = document.createTextNode("Cell!")
+	    var label = document.createTextNode("")
 	    
 
 	    td.appendChild(label) 
@@ -70,38 +102,13 @@ drawTableForRoom = function(startTimes,endTimes) {//may require a parameter addi
 	}    	
 	var head = tr.insertCell()
 	head.innerHTML = "<b>"+ tr.date + "</b>"
+	head.style.width = "100px"
 	lstOfTableRows.unshift(tr)
     }
+    drawingNumbers()
     conflictsByRoom(startTimes,endTimes)
 }
 
-
-drawConflict = function(start, end, row){
-    var startTimeAndDate =  start//startTimes[i]//"2014-03-20T10:30:00-05:00" //startTimes[i]
-    var endTimeAndDate = end//endTimes[i]//"2014-03-20T14:30:00-05:00"   //endTimes[i]
-    
-    var startTimeLst = startTimeAndDate.split("T")
-    var endTimeLst = endTimeAndDate.split("T")
-    
-    var startDate = startTimeLst[0]
-    var startTime = startTimeLst[1].split("-")[0].slice(0,5) //dependent on the format of time variable
-    
-    var endDate = endTimeLst[0]
-    var endTime = endTimeLst[1].split("-")[0].slice(0,5) //dependent on the format of time variable    
-    
-    var startCellNumber = timeToCellNumber(startTime)
-    var endCellNumber = timeToCellNumber(endTime)
-    
-    
-    
-    if(lstOfTableCells.find(row,1) != undefined){
-	for(var x = startCellNumber; x<endCellNumber; x++){
-	    
-	    
-	    lstOfTableCells.find(row,x).style.backgroundColor = "red"
-	}
-    }
-}
 
 
 conflictsByRoom = function(startTimes, endTimes){ //include endtime and startTime parameters
@@ -137,7 +144,7 @@ drawTableForDate = function(eventList){
     for(var i = roomList.length; i>0;i--){
 	tr = grid.insertRow()
 	
-	for(var j = 24; j>0; j--){
+	for(var j = 96; j>0; j--){
 	    td = tr.insertCell()
 	    cell= new Cell(i,j)
 	    
@@ -146,7 +153,7 @@ drawTableForDate = function(eventList){
 	    td.cell = cell
 	    td.onmouseover = function(){console.log(this.cell.row, this.cell.col)}
 	    
-	    var label = document.createTextNode("Cell!")
+	    var label = document.createTextNode("")
 	    
 	    td.appendChild(label)
 	    lstOfTableCells.append(td)
@@ -155,9 +162,10 @@ drawTableForDate = function(eventList){
 
 	var head = tr.insertCell()
 	head.innerHTML = "<b>"+roomList[i-1]+"</b>"
+	head.style = "100px"
 	lstOfTableRows.unshift(tr)
     }
-
+    drawingNumbers()
     conflictsByDate(eventList)
 }
 
@@ -192,6 +200,34 @@ conflictsByDate = function(eventList){
     
 }
 
+
+drawConflict = function(start, end, row){
+    var startTimeAndDate =  start//startTimes[i]//"2014-03-20T10:30:00-05:00" //startTimes[i]
+    var endTimeAndDate = end//endTimes[i]//"2014-03-20T14:30:00-05:00"   //endTimes[i]
+    
+    var startTimeLst = startTimeAndDate.split("T")
+    var endTimeLst = endTimeAndDate.split("T")
+    
+    var startDate = startTimeLst[0]
+    var startTime = startTimeLst[1].split("-")[0].slice(0,5) //dependent on the format of time variable
+    
+    var endDate = endTimeLst[0]
+    var endTime = endTimeLst[1].split("-")[0].slice(0,5) //dependent on the format of time variable    
+   
+    var startCellNumber = timeToCellNumber(startTime)
+    var endCellNumber = timeToCellNumber(endTime)
+    console.log(startTime, " ", startCellNumber)
+    console.log(endTime, " ", endCellNumber)
+    
+    if(lstOfTableCells.find(row,1) != undefined){
+	console.log(startCellNumber, "  ", endCellNumber)
+	for(var x = startCellNumber; x<endCellNumber; x++){
+	    
+	    console.log(x)
+	    lstOfTableCells.find(row,x).style.backgroundColor = "red"
+	}
+    }
+}
 
 
 
@@ -267,3 +303,6 @@ function tableCreate(){
    break only break the current loop.
    td.appendChild(document.createTextNode("BLAH")
 */
+
+
+window.onload = handleClientLoad()
