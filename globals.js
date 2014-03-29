@@ -46,14 +46,14 @@ DateClass = function(selectedDate){
 }
 
 
-
-
-
+/*
+ *The following are various functions used throughought the application
+ */
 getDate = function(newDate){
 
     if( newDate != undefined){
 	var today = newDate
-	var mm = today.getMonth()
+	var mm = today.getMonth()+1
     }
     
     else{
@@ -77,7 +77,13 @@ getDate = function(newDate){
     return today = yyyy+'-'+mm+'-'+dd
 }
 
+/*
+ *The following are onclick functions
+ */
 
+nextWeek = function(){
+    console.log("This button doesn't do anything yet!")
+}
 
 
 /*The following are many variables that will be used throughout the application*/
@@ -93,7 +99,7 @@ var idDictionary = {"Olin 102" : 'luther.edu_32d3jjc84gn5u25i4jji0c8d6o@group.ca
 var roomList = ["Olin 102", "Valders 206"] //for some reason I think this may be useful....
 
 var selectedRoom = "Valders 206"
-
+var selectedDate = undefined
 //Although we will be able to synch up room names with the names that we choose for the keys of our JS object, is may be difficult to get them to line up in real life.
 
 

@@ -1,10 +1,6 @@
 /* This file contains (for now) the function that will be used to create the table that
    displays what time are reserved */
 
-genObject = function(i){
-    this.num = i
-}
-
 timeToCellNumber = function(time){ //This function depends on how much time each column represents
     timeDecomp = time.split(":") //decomposes the time string into the hour and minutes
     var cellNumber = 0
@@ -22,7 +18,7 @@ militaryTimeToCivilianTime = function(hour){  //ASK A QUESTION ABOUT THIS DAMN F
 	    
 	    //console.log("before ", time, "  ",time+"pm")
 	    time = 12 
-	    console.log("after ", time, " ", time+"pm")
+	    //console.log("after ", time, " ", time+"pm")
 	}
 	return time +"pm"
     }
@@ -31,16 +27,23 @@ militaryTimeToCivilianTime = function(hour){  //ASK A QUESTION ABOUT THIS DAMN F
     }
     
 }
-
+colorRows = function(tr,i){
+    if(i%2 == 1){
+	tr.style.backgroundColor = "DDD"
+    }
+    else{
+	tr.style.backgroundColor = "white"
+    }
+}
 drawingNumbers = function(){
     var grid = document.getElementById("grid")
     var tr = grid.insertRow()
     for(var i = 23;i>-1;i--){
 	var td = tr.insertCell()
-	td.innerHTML = militaryTimeToCivilianTime(i)
+	td.innerHTML = "<b>" + militaryTimeToCivilianTime(i) + "</b>"
 	////////////////
 	if(i == 0){
-	    td.innerHTML = 12+"am" //THIS SHOULD NOT BE NECESSARY. I HAVE NO IDEA WHAT IS HAPPENING
+	    td.innerHTML = "<b>"+12+"am"+"</b>" //THIS SHOULD NOT BE NECESSARY. I HAVE NO IDEA WHAT IS HAPPENING
 	}
 	////////////////
 	td.colSpan = "4"
@@ -57,12 +60,12 @@ drawTableForRoom = function(startTimes,endTimes) {//may require a parameter addi
     
     var grid = document.getElementById("grid")
     
-    selectedDate = undefined
-    //selectedDate = "2014-03-14" //remember the date thing is still wonky
+    
+    selectedDate = "2014-03-14" //remember the date thing is still wonky
     for( var i = 7; i>=1;i--){
 	
 	tr = grid.insertRow() //creates row object
-	
+	colorRows(tr,i)
 	
 	if(selectedDate != undefined){
 
@@ -74,9 +77,11 @@ drawTableForRoom = function(startTimes,endTimes) {//may require a parameter addi
 	}
 	
 	//this is going to be shenanigans
-	var newDay = Number(tempLst[2])+i-1
-	//console.log(tempLst[0],tempLst[1], newDay)
-	newDate = new Date(tempLst[0],tempLst[1], newDay)//Something wonky happens here
+	var newDay = Number(tempLst[2])+i-1 // first term is the first date of the table. 
+	                                    // second terms adujsts you to the current row
+	console.log(tempLst[0],tempLst[1], newDay)
+	newDate = new Date(tempLst[0],tempLst[1]-1, newDay)//Something wonky happens here
+	console.log(newDate)
 	tr.date = getDate(newDate)// that is causing the month to be off by one
 	
 	
@@ -185,9 +190,9 @@ conflictsByDate = function(eventList){
 	    console.log(eventList[j].organizer.email)
 	    
 	    if (sourceCalendar == roomId){
-		console.log(roomName, " ", roomId, " ", event.summary)
+		//console.log(roomName, " ", roomId, " ", event.summary)
 		rowForRoom = roomList.indexOf(roomName) + 1
-		console.log("Row for Room: ", rowForRoom)
+		//console.log("Row for Room: ", rowForRoom)
 		break
 	    }
 	}
@@ -216,15 +221,15 @@ drawConflict = function(start, end, row){
    
     var startCellNumber = timeToCellNumber(startTime)
     var endCellNumber = timeToCellNumber(endTime)
-    console.log(startTime, " ", startCellNumber)
-    console.log(endTime, " ", endCellNumber)
+    //console.log(startTime, " ", startCellNumber)
+    //console.log(endTime, " ", endCellNumber)
     
     if(lstOfTableCells.find(row,1) != undefined){
-	console.log(startCellNumber, "  ", endCellNumber)
+	//console.log(startCellNumber, "  ", endCellNumber)
 	for(var x = startCellNumber; x<endCellNumber; x++){
 	    
-	    console.log(x)
-	    lstOfTableCells.find(row,x).style.backgroundColor = "red"
+	    //console.log(x)
+	    lstOfTableCells.find(row,x).style.backgroundColor = "BBF"
 	}
     }
 }
