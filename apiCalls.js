@@ -6,8 +6,8 @@ makeApiCallForRoom = function(){
 
     gapi.client.load('calendar', 'v3', function(){
 	var onCompleteForRoom = function(){drawTableForRoom(startTimes,endTimes)}
-	var startTimes = []
-	var endTimes = []
+	startTimes = []
+	endTimes = []
 	
 	var request = gapi.client.calendar.events.list({
 	    'calendarId' : idDictionary[selectedRoom],'singleEvents' : true ,'orderBy' : 'startTime'}) // makes a request for a list of events that has been ordered by date.

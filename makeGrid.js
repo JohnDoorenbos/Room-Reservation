@@ -66,7 +66,7 @@ drawTableForRoom = function(startTimes,endTimes) {//may require a parameter addi
 	
 	tr = grid.insertRow() //creates row object
 	colorRows(tr,i)
-	
+	/*
 	if(selectedDate != undefined){
 
 	    var tempLst = selectedDate.split("-")
@@ -83,9 +83,9 @@ drawTableForRoom = function(startTimes,endTimes) {//may require a parameter addi
 	newDate = new Date(tempLst[0],tempLst[1]-1, newDay)//Something wonky happens here
 	console.log(newDate)
 	tr.date = getDate(newDate)// that is causing the month to be off by one
+	*/
 	
 	
-	tr.onmouseover = function(){console.log(this.date)}
 
 	for( var j = 96; j>=1; j--){ //note: 24 is the number of half an hour time slot there are. 
 	    td = tr.insertCell()
@@ -109,7 +109,10 @@ drawTableForRoom = function(startTimes,endTimes) {//may require a parameter addi
 	head.innerHTML = "<b>"+ tr.date + "</b>"
 	head.style.width = "100px"
 	lstOfTableRows.unshift(tr)
+	lstOfTableRowHeaders.unshift(head)
+	
     }
+    setDatesOfGrid()
     drawingNumbers()
     conflictsByRoom(startTimes,endTimes)
 }
@@ -135,9 +138,32 @@ conflictsByRoom = function(startTimes, endTimes){ //include endtime and startTim
 	drawConflict(startTimes[i], endTimes[i], rowForDate)
     }
 }
+setDatesOfGrid = function(){
+    console.log("meow")
+    for(var i = 0; i<7;i++) {
+	if(selectedDate != undefined){
+	    var tempLst = selectedDate.split("-")
+	}
+	else{
+	    var tempLst = getDate().split("-")
+	}
+	
+	//this is going to be shenanigans
+	var newDay = Number(tempLst[2])+i // first term is the first date of the table. 
+	                                    // second terms adujsts you to the current row
+	console.log(tempLst[0],tempLst[1], newDay)
+	newDate = new Date(tempLst[0],tempLst[1]-1, newDay)//Something wonky happens here
+	console.log(newDate)
+	lstOfTableRows[i].date = getDate(newDate)
+	lstOfTableRowHeaders[i].innerHTML ="<b>"+lstOfTableRows[i].date + "</b>"
+	tr.onmouseover = function(){console.log(this.date)}
+    }
+    
+}
 
-
-
+/*
+ *THE FOLLOWING IS PREDOMINANTLY FOR DATE CONSTANT GRIDS
+ */
 
 drawTableForDate = function(eventList){
     console.log("drawTableForDate()")
@@ -207,7 +233,7 @@ conflictsByDate = function(eventList){
 
 
 drawConflict = function(start, end, row){
-    var startTimeAndDate =  start//startTimes[i]//"2014-03-20T10:30:00-05:00" //startTimes[i]
+    var startTimeAndDate = start//startTimes[i]//"2014-03-20T10:30:00-05:00" //startTimes[i]
     var endTimeAndDate = end//endTimes[i]//"2014-03-20T14:30:00-05:00"   //endTimes[i]
     
     var startTimeLst = startTimeAndDate.split("T")
@@ -237,11 +263,19 @@ drawConflict = function(start, end, row){
 
 
 clearTable = function(){  //simply clears out all of the red cells
+
     for(var i = 1; i<=7; i++){
-	for(var j = 1; j<=24; j++){
-		lstOfTableCells.find(i,j).style.backgroundColor = "white"
+	for(var j = 1; j<=96; j++){
+	    if(i%2 == 1){
+		console.log("odd row")
+		lstOfTableCells.find(i,j).style.backgroundColor = "DDD"
 	    }
+	    else{
+		console.log("even row")
+		lstOfTableCells.find(i,j).style.backgroundColor = "white"
+	    }	    
 	}
+    }
 }
 
 deleteTable = function(){   //deletes the entire current table

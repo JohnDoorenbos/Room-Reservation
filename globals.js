@@ -82,7 +82,16 @@ getDate = function(newDate){
  */
 
 nextWeek = function(){
-    console.log("This button doesn't do anything yet!")
+    console.log("This kitten doesn't do anything yet!")
+    if(selectedDate != undefined){
+	dateDecomp = selectedDate.split("-")
+	newDate = new Date(dateDecomp[0],dateDecomp[1]-1, Number(dateDecomp[2])+7) //Make own object?
+	selectedDate = getDate(newDate)
+    }
+    console.log("after")
+    clearTable()
+    setDatesOfGrid()
+    conflictsByRoom(startTimes,endTimes)
 }
 
 
@@ -100,6 +109,9 @@ var roomList = ["Olin 102", "Valders 206"] //for some reason I think this may be
 
 var selectedRoom = "Valders 206"
 var selectedDate = undefined
+
+var startTimes = []
+var endTimes = []
 //Although we will be able to synch up room names with the names that we choose for the keys of our JS object, is may be difficult to get them to line up in real life.
 
 
@@ -109,6 +121,7 @@ var selectedDate = undefined
 var lstOfCells = new ListOfCells()
 var lstOfTableCells = new ListOfTableCells()
 var lstOfTableRows = []
+var lstOfTableRowHeaders = []
 
 setLists = function(){
     lstOfCells = new ListOfCells()
