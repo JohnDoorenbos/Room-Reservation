@@ -185,9 +185,9 @@ var scopes = "https://www.googleapis.com/auth/calendar"
 var apiKey = "AIzaSyBqSG3IjmORp5YtLbC3uH-vknUuY0cmsjE"
 var clientId = "757845678130.apps.googleusercontent.com"
 
-var idDictionary = {"Olin 102" : 'luther.edu_32d3jjc84gn5u25i4jji0c8d6o@group.calendar.google.com', "Valders 206" : 'luther.edu_quvl61clrh2gn04kpr49mcg7d8@group.calendar.google.com'}
+var idDictionary = {"Olin 102" : 'luther.edu_32d3jjc84gn5u25i4jji0c8d6o@group.calendar.google.com', "Valders 206" : 'luther.edu_quvl61clrh2gn04kpr49mcg7d8@group.calendar.google.com', "NRH" : 'luther.edu_o6lp55fguo5n2eobso5a73dqhg@group.calendar.google.com'}
 
-var roomList = ["Olin 102", "Valders 206"] //for some reason I think this may be useful....
+var roomList = ["Olin 102", "Valders 206","NRH"] //for some reason I think this may be useful....
 
 var selectedRoom = "Valders 206"
 var selectedDate = undefined

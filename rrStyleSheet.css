@@ -1,5 +1,7 @@
 
-
+#grid {
+    background: center center no-repeat
+}
 table{
     border : 1px solid black;
     border-spacing: 0px;
