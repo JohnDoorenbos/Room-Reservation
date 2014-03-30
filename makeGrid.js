@@ -5,7 +5,7 @@ timeToCellNumber = function(time){ //This function depends on how much time each
     timeDecomp = time.split(":") //decomposes the time string into the hour and minutes
     var cellNumber = 0
     //console.log((timeDecomp[0]-6)*2)
-    cellNumber = (Number(timeDecomp[0])*4+Number(timeDecomp[1])/15)+1
+    cellNumber = (Number(timeDecomp[0])*4+Math.floor(Number(timeDecomp[1])/15))+1
 //    cellNumber += timeDecomp[0]*4-timeDecomp/15//(timeDecomp[0]-6)*2 
     //if(timeDecomp[1] == 00){cellNumber--}
     return cellNumber
@@ -41,6 +41,7 @@ drawingNumbers = function(){
     for(var i = 23;i>-1;i--){
 	var td = tr.insertCell()
 	td.innerHTML = "<b>" + militaryTimeToCivilianTime(i) + "</b>"
+	td.style.borderRight = "2px solid black"
 	////////////////
 	if(i == 0){
 	    td.innerHTML = "<b>"+12+"am"+"</b>" //THIS SHOULD NOT BE NECESSARY. I HAVE NO IDEA WHAT IS HAPPENING
@@ -50,18 +51,26 @@ drawingNumbers = function(){
     }
     var head = tr.insertCell()
     head.style.width = "100px"
+    if(gridIndicator){
+	head.innerHTML = "<b>"+ selectedRoom + "</b>"
+    }
+    else{
+	head.innerHTML = "<b>"+ selectedDate + "</b>"
+    }
+    
 }
-
+    
 
 
 drawTableForRoom = function(startTimes,endTimes) {//may require a parameter addition
     console.log("drawTableForRoom()")
+    gridIndicator = true
     setLists() //resets the global list variables
     
     var grid = document.getElementById("grid")
     
     
-    selectedDate = "2014-03-14" //remember the date thing is still wonky
+    //selectedDate = "2014-03-14" //remember the date thing is still wonky
     for( var i = 7; i>=1;i--){
 	
 	tr = grid.insertRow() //creates row object
@@ -82,6 +91,7 @@ drawTableForRoom = function(startTimes,endTimes) {//may require a parameter addi
 	console.log(tempLst[0],tempLst[1], newDay)
 	newDate = new Date(tempLst[0],tempLst[1]-1, newDay)//Something wonky happens here
 	console.log(newDate)
+	
 	tr.date = getDate(newDate)// that is causing the month to be off by one
 	*/
 	
@@ -89,7 +99,12 @@ drawTableForRoom = function(startTimes,endTimes) {//may require a parameter addi
 
 	for( var j = 96; j>=1; j--){ //note: 24 is the number of half an hour time slot there are. 
 	    td = tr.insertCell()
-
+	    if(j%4 == 0){
+		td.style.borderRight = "2px solid black"
+	    }
+	    else{
+		td.style.borderRight = "1px gray"
+	    }
 	    cell = new Cell(i,j)
 	    
 	    lstOfCells.append(cell) //appends to cell list
@@ -107,7 +122,11 @@ drawTableForRoom = function(startTimes,endTimes) {//may require a parameter addi
 	}    	
 	var head = tr.insertCell()
 	head.innerHTML = "<b>"+ tr.date + "</b>"
+	var date = tr.date
+	head.date = date
+	
 	head.style.width = "100px"
+	head.onclick = onDateClick
 	lstOfTableRows.unshift(tr)
 	lstOfTableRowHeaders.unshift(head)
 	
@@ -121,7 +140,8 @@ drawTableForRoom = function(startTimes,endTimes) {//may require a parameter addi
 
 conflictsByRoom = function(startTimes, endTimes){ //include endtime and startTime parameters
     console.log("conflictsByRoom()")
-    
+    gridIndicator = true
+
     for( var i = 0; i<(startTimes.length);i++){
 	
 	var startDate = startTimes[i].split("T")[0]
@@ -138,7 +158,7 @@ conflictsByRoom = function(startTimes, endTimes){ //include endtime and startTim
 	drawConflict(startTimes[i], endTimes[i], rowForDate)
     }
 }
-setDatesOfGrid = function(){
+setDatesOfGrid = function(){ //only for ForRoom grid
     console.log("meow")
     for(var i = 0; i<7;i++) {
 	if(selectedDate != undefined){
@@ -156,7 +176,8 @@ setDatesOfGrid = function(){
 	console.log(newDate)
 	lstOfTableRows[i].date = getDate(newDate)
 	lstOfTableRowHeaders[i].innerHTML ="<b>"+lstOfTableRows[i].date + "</b>"
-	tr.onmouseover = function(){console.log(this.date)}
+	lstOfTableRowHeaders[i].date = getDate(newDate)
+	lstOfTableRows[i].onmouseover = function(){console.log(this.date)}
     }
     
 }
@@ -167,16 +188,22 @@ setDatesOfGrid = function(){
 
 drawTableForDate = function(eventList){
     console.log("drawTableForDate()")
-
+    gridIndicator = false
     setLists()
     
     var grid = document.getElementById("grid")
-    selectedDate = "2014-03-14"
+    //selectedDate = "2014-03-14"
     for(var i = roomList.length; i>0;i--){
 	tr = grid.insertRow()
-	
+	colorRows(tr,i)
 	for(var j = 96; j>0; j--){
 	    td = tr.insertCell()
+	    if(j%4 == 0){
+		td.style.borderRight = "2px solid black"	
+	    }
+	    else{
+		td.style.borderRight = "1px gray"
+	    }
 	    cell= new Cell(i,j)
 	    
 	    lstOfCells.append(td.cell)
@@ -192,8 +219,11 @@ drawTableForDate = function(eventList){
 
 
 	var head = tr.insertCell()
-	head.innerHTML = "<b>"+roomList[i-1]+"</b>"
+	tr.room = roomList[i-1]
+	head.room = roomList[i-1]
+	head.innerHTML = "<b>"+tr.room+"</b>"
 	head.style = "100px"
+	head.onclick = onRoomClick
 	lstOfTableRows.unshift(tr)
     }
     drawingNumbers()
@@ -202,6 +232,7 @@ drawTableForDate = function(eventList){
 
 conflictsByDate = function(eventList){
     console.log("conflictsByDate()")
+    gridIndicator = false
     /*currently this function is dependent on the fact that organizer.email is the same 
      * as the calendar id. If it's not, we'll have some issues...
      */
@@ -224,7 +255,7 @@ conflictsByDate = function(eventList){
 	}
 	var startTime = event.start.dateTime
 	var endTime = event.end.dateTime
-	
+	console.log("startTime: ",startTime, "  ", "endTime", endTime)
 	drawConflict(startTime, endTime, rowForRoom)
 	
     }
@@ -262,7 +293,7 @@ drawConflict = function(start, end, row){
 
 
 
-clearTable = function(){  //simply clears out all of the red cells
+clearTable = function(){  //simply clears out all of the busy cells
 
     for(var i = 1; i<=7; i++){
 	for(var j = 1; j<=96; j++){
@@ -280,6 +311,7 @@ clearTable = function(){  //simply clears out all of the red cells
 
 deleteTable = function(){   //deletes the entire current table
     console.log("deleteTable()")
+    gridIndicator = undefined
     
     var grid = document.getElementById("grid")
     while(grid.rows.length != 0){

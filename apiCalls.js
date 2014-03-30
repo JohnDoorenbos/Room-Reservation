@@ -33,8 +33,13 @@ makeApiCallForDate = function(){
     var onCompleteForDate = function(){
 	onCompleteForDate = function(){drawTableForDate(eventList)}
     }
-
-    var selectedDate = "2014-03-20"
+    console.log("1) date: ", selectedDate)
+    //var selectedDate = "2014-03-20"
+    if(selectedDate == undefined){
+	console.log("Inside If")
+	selectedDate = getDate()
+    }
+    console.log("2) date: ", selectedDate)
     var counter = 0 //used to rememdy asynchronous problems.
     var eventList = []
     //var  startTimes = []

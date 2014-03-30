@@ -80,21 +80,103 @@ getDate = function(newDate){
 /*
  *The following are onclick functions
  */
+forwardClick = function(){
+    if(gridIndicator){
+	nextWeek()
+    }
+    else{
+	nextDay()
+    }
+}
+
+backwardClick = function(){
+    if(gridIndicator){
+	lastWeek()
+    }
+    else{
+	previousDay()
+    }
+}
+
 
 nextWeek = function(){
     console.log("This kitten doesn't do anything yet!")
     if(selectedDate != undefined){
 	dateDecomp = selectedDate.split("-")
-	newDate = new Date(dateDecomp[0],dateDecomp[1]-1, Number(dateDecomp[2])+7) //Make own object?
-	selectedDate = getDate(newDate)
+
     }
+    else{
+	console.log("inside else")
+	
+	dateDecomp = getDate().split("-")
+	console.log(dateDecomp)
+    }
+    
+    newDate = new Date(dateDecomp[0],dateDecomp[1]-1, Number(dateDecomp[2])+7) //Make own object?
+    
+    selectedDate = getDate(newDate)
     console.log("after")
     clearTable()
     setDatesOfGrid()
     conflictsByRoom(startTimes,endTimes)
 }
 
+lastWeek=function(){   
+    console.log("This kitten doesn't do anything yet!")
+    if(selectedDate != undefined){
+	dateDecomp = selectedDate.split("-")
 
+    }
+    else{
+	console.log("inside else")
+	
+	dateDecomp = getDate().split("-")
+	console.log(dateDecomp)
+    }
+    
+    newDate = new Date(dateDecomp[0],dateDecomp[1]-1, Number(dateDecomp[2])-7) //Make own object?
+    
+    selectedDate = getDate(newDate)
+    console.log("after")
+    clearTable()
+    setDatesOfGrid()
+    conflictsByRoom(startTimes,endTimes)
+}
+
+nextDay = function(){
+    dateDecomp = selectedDate.split("-")
+    newDate = new Date(dateDecomp[0],dateDecomp[1]-1, Number(dateDecomp[2])+1) //Make own object?
+    selectedDate = getDate(newDate)
+    deleteTable()
+    makeApiCallForDate()
+}
+
+previousDay = function(){
+    dateDecomp = selectedDate.split("-")
+    newDate = new Date(dateDecomp[0],dateDecomp[1]-1, Number(dateDecomp[2])-1) //Make own object?
+    selectedDate = getDate(newDate)
+    deleteTable()
+    makeApiCallForDate()
+}
+
+
+
+
+onRoomClick = function(){
+    console.log(this.room)
+    selectedRoom = this.room
+    deleteTable()
+    selectedDate = undefined
+    makeApiCallForRoom()
+}
+onDateClick = function(){
+    console.log("Header Date: ",this.date)
+    console.log("selectedDate: ",selectedDate)
+    selectedDate = this.date
+    console.log(selectedDate)
+    deleteTable()
+    makeApiCallForDate()
+}
 /*The following are many variables that will be used throughout the application*/
 
 
@@ -128,4 +210,7 @@ setLists = function(){
     lstOfTableCells = new ListOfTableCells()
     lstOfTableRows = []
 }
-var defaultStartDate = "k"
+
+
+var gridIndicator = undefined //Indicates which grid is displayed
+                              //true: ForRoom, false: ForDate
