@@ -80,6 +80,13 @@ getDate = function(newDate){
 /*
  *The following are onclick functions
  */
+
+
+
+
+
+
+
 forwardClick = function(){
     if(gridIndicator){
 	nextWeek()
@@ -214,3 +221,6 @@ setLists = function(){
 
 var gridIndicator = undefined //Indicates which grid is displayed
                               //true: ForRoom, false: ForDate
+
+
+var selectorData = document.getElementById("selector")

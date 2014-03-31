@@ -23,3 +23,9 @@ What do I want to do today?
      	     - display some kind of grid.
 	     - mess around with table layout a bit
 	     - 
+
+
+
+checkSelect = function(){
+	    selectorDate = document.getElementById	    
+}
