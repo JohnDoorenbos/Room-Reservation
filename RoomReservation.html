@@ -15,15 +15,21 @@
 <div id="display">
   
   <div id="input">
+    
 
-  <select id="selector">
-  <option value="forRoom">room</option>
-  <option value="forDate">date</option>
-</select>
-
-<!--<input type="text" id="userInput" value="">
-<button onclick="printErrors()">Submit</button>-->
-</div>
+    <select id="selector" onchange="checkSelect()">
+      <option value="forRoom">Room</option>
+      <option value="forDate">Date</option>
+    </select>
+    
+<!--<input type="text" id="userInput" value="">-->
+<button onclick="processSelect()">Enter</button>
+  </div>
+  <!--/input-->
+  <div id="choice">
+  </div>
+  <!--/choice-->
+  
   <table id="grid">
 
   </table>

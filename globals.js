@@ -84,27 +84,65 @@ getDate = function(newDate){
 checkSelect = function(){
     var selectorData = document.getElementById("selector").value
     var inputArea = document.getElementById("input")
+    var choice = document.getElementById("choice")
+    
     if(selectorData == "forRoom"){
 	//create dropdown menu (select) with room options
 	
 	var roomSelect = document.createElement("SELECT")
+	roomSelect.id = "roomSelect"
 	for( var i = 0; i<roomList.length; i++){
 	    var option = document.createElement("option")
 	    option.text = roomList[i]
 	    option.value = roomList[i]
 	    roomSelect.add(option)
 	}
-	console.log(roomSelect)
 	
-	inputArea.append(roomSelect)
+	if(choice.childNodes.length ==2){
+	    choice.removeChild(choice.lastChild)
+	    choice.appendChild(roomSelect)
+
+	}
+	else{
+	    choice.appendChild(roomSelect)
+	}
+	console.log(choice.childNodes[0] != undefined) 
+	//choice.replaceChild(
+	//choice.appendChild(roomSelect)
     }
     else{
+	var inputBox = document.createElement("input")
+	inputBox.type = "text"
+	inputBox.id ="inputBox"
+	if(choice.childNodes.length ==2){
+	    choice.removeChild(choice.lastChild)
+	    choice.appendChild(inputBox)
+
+	}
+	else{
+	    choice.appendChild(inputBox)
+	}
+	
+	
 	//create input box for date, with text example above it
     }
     //create button that can submit and has an onclick. (mostly done)
 }
 
-
+processSelect = function(){
+    var selectorData = document.getElementById("selector").value
+    
+    if(selectorData == "forRoom"){
+	selectedRoom = document.getElementById("roomSelect").value
+	deleteTable()
+	makeApiCallForRoom()
+    }
+    else{
+	selectedDate = document.getElementById("inputBox").value
+	deleteTable()
+	makeApiCallForDate()
+    }
+}
 
 
 
@@ -244,17 +282,13 @@ var gridIndicator = undefined //Indicates which grid is displayed
                               //true: ForRoom, false: ForDate
 
 
-var selectorData = document.getElementById("selector")
+//var selectorData = document.getElementById("selector")
 
 
 
 
 
 
-var selectorData = document.getElementById("selector").value
-var inputArea = document.getElementById("input")
+//var selectorData = document.getElementById("selector").value
+//var inputArea = document.getElementById("input")
 
-var input = document.createElement("input")
-input.type = "text"
-input.className = "css-class-name"
-input.append(input)
