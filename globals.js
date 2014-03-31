@@ -113,7 +113,9 @@ checkSelect = function(){
     else{
 	var inputBox = document.createElement("input")
 	inputBox.type = "text"
+	inputBox.defaultValue="Ex) 2014-12-25 (yyyy-mm-dd)"
 	inputBox.id ="inputBox"
+	inputBox.style.width = "200px"
 	if(choice.childNodes.length ==2){
 	    choice.removeChild(choice.lastChild)
 	    choice.appendChild(inputBox)
