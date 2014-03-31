@@ -26,6 +26,4 @@ What do I want to do today?
 
 
 
-checkSelect = function(){
-	    selectorData = document.getElementById("selector").value	    
-}
+

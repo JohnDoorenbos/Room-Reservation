@@ -81,7 +81,28 @@ getDate = function(newDate){
  *The following are onclick functions
  */
 
-
+checkSelect = function(){
+    var selectorData = document.getElementById("selector").value
+    var inputArea = document.getElementById("input")
+    if(selectorData == "forRoom"){
+	//create dropdown menu (select) with room options
+	
+	var roomSelect = document.createElement("SELECT")
+	for( var i = 0; i<roomList.length; i++){
+	    var option = document.createElement("option")
+	    option.text = roomList[i]
+	    option.value = roomList[i]
+	    roomSelect.add(option)
+	}
+	console.log(roomSelect)
+	
+	inputArea.append(roomSelect)
+    }
+    else{
+	//create input box for date, with text example above it
+    }
+    //create button that can submit and has an onclick. (mostly done)
+}
 
 
 
