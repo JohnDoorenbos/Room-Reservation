@@ -11,18 +11,19 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript" src="apiCalls.js"></script>
 <script type="text/javascript" src="testing.js"></script>
-<script type="text/javascript" src="globals.js"></script>
+
 <div id="display">
   
+  <div id="input">
 
   <select id="selector">
   <option value="forRoom">room</option>
   <option value="forDate">date</option>
 </select>
 
-<input type="text" id="userInput" value="">
-<button onclick="printErrors()">Submit</button>
-
+<!--<input type="text" id="userInput" value="">
+<button onclick="printErrors()">Submit</button>-->
+</div>
   <table id="grid">
 
   </table>
@@ -35,16 +36,19 @@
 
 
 
+
 </div>
 
-<!--<div id="output"></div> -->
 
-<button onclick="backwardClick()"><</button>
-<button onclick="forwardClick()">></button>
 
+<button onclick="backwardClick()"> < </button>
+<button onclick="forwardClick()"> > </button>
+
+
+<script type="text/javascript" src="globals.js"></script>
 <script type="text/javascript" src="clientAuth.js"></script>
 <script type="text/javascript" src="makeGrid.js"></script>
-
+<script src="errorCheck.js"</script>
 
 
 </body>

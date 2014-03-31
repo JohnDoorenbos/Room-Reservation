@@ -3,11 +3,11 @@ function checkForInputErrors() { //this function will check to see if the select
     var error = ""
 
 
-    var selectorData = document.getElementById("selector")
+    selectorData = document.getElementById("selector")
     var userInputData = document.getElementById("userInput")
 
 
-    if (errorCheckForDate()==true && selectorData=="forDate") { 
+    if (errorCheckForDate()==true && selectorData =="forDate") { 
 
 	error = "Input error. The date is not of the correct format."
 	
@@ -95,9 +95,8 @@ function errorCheckForRoom() {
 
 function printErrors() { //actually prints the error
 
-  // var document.getElementById("output").innterHTML = ""
-   //var document.getElementById("output").innerHTML = checkForInputErrors()
-
-x = "cat"
+    //var document.getElementById("output").innterHTML = ""
+    //var document.getElementById("output").innerHTML = checkForInputErrors()
+    x = "cat"
 
 }

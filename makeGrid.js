@@ -374,6 +374,8 @@ function tableCreate(){
    break only break the current loop.
    td.appendChild(document.createTextNode("BLAH")
 */
+// waits two seconds before doing the onload function. hopefully enough time for the library requests to be made
+var timeout = window.setTimeout(function() {
+    window.onload = handleClientLoad()    
+}, 2000);
 
-
-window.onload = handleClientLoad()
