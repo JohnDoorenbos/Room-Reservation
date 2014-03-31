@@ -4,21 +4,19 @@
 timeToCellNumber = function(time){ //This function depends on how much time each column represents
     timeDecomp = time.split(":") //decomposes the time string into the hour and minutes
     var cellNumber = 0
-    //console.log((timeDecomp[0]-6)*2)
+
     cellNumber = (Number(timeDecomp[0])*4+Math.floor(Number(timeDecomp[1])/15))+1
-//    cellNumber += timeDecomp[0]*4-timeDecomp/15//(timeDecomp[0]-6)*2 
-    //if(timeDecomp[1] == 00){cellNumber--}
+
     return cellNumber
 }
 militaryTimeToCivilianTime = function(hour){  //ASK A QUESTION ABOUT THIS DAMN FUNCTION
     var time = (hour%12)
-    //console.log("hour = ", hour, " time= ",  time)
+
     if(hour/12 >= 1){
 	if(time == 0 || hour == 0){
-	    
-	    //console.log("before ", time, "  ",time+"pm")
+	    //this isn't working that well... 
 	    time = 12 
-	    //console.log("after ", time, " ", time+"pm")
+
 	}
 	return time +"pm"
     }
@@ -42,6 +40,7 @@ drawingNumbers = function(){
 	var td = tr.insertCell()
 	td.innerHTML = "<b>" + militaryTimeToCivilianTime(i) + "</b>"
 	td.style.borderRight = "2px solid black"
+	td.style.backgroundColor = "white"
 	////////////////
 	if(i == 0){
 	    td.innerHTML = "<b>"+12+"am"+"</b>" //THIS SHOULD NOT BE NECESSARY. I HAVE NO IDEA WHAT IS HAPPENING
@@ -57,6 +56,7 @@ drawingNumbers = function(){
     else{
 	head.innerHTML = "<b>"+ selectedDate + "</b>"
     }
+    head.style.backgroundColor = "white"
     
 }
     
@@ -75,27 +75,6 @@ drawTableForRoom = function(startTimes,endTimes) {//may require a parameter addi
 	
 	tr = grid.insertRow() //creates row object
 	colorRows(tr,i)
-	/*
-	if(selectedDate != undefined){
-
-	    var tempLst = selectedDate.split("-")
-	    
-	}
-	else{
-	    var tempLst = getDate().split("-")
-	}
-	
-	//this is going to be shenanigans
-	var newDay = Number(tempLst[2])+i-1 // first term is the first date of the table. 
-	                                    // second terms adujsts you to the current row
-	console.log(tempLst[0],tempLst[1], newDay)
-	newDate = new Date(tempLst[0],tempLst[1]-1, newDay)//Something wonky happens here
-	console.log(newDate)
-	
-	tr.date = getDate(newDate)// that is causing the month to be off by one
-	*/
-	
-	
 
 	for( var j = 96; j>=1; j--){ //note: 24 is the number of half an hour time slot there are. 
 	    td = tr.insertCell()
@@ -286,7 +265,7 @@ drawConflict = function(start, end, row){
 	for(var x = startCellNumber; x<endCellNumber; x++){
 	    
 	    //console.log(x)
-	    lstOfTableCells.find(row,x).style.backgroundColor = "BBF"
+	    lstOfTableCells.find(row,x).style.backgroundColor = "B60DFF"
 	}
     }
 }
