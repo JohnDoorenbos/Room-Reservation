@@ -12,8 +12,17 @@
 <script type="text/javascript" src="apiCalls.js"></script>
 <script type="text/javascript" src="testing.js"></script>
 <script type="text/javascript" src="globals.js"></script>
-
 <div id="display">
+  
+
+  <select id="selector">
+  <option value="forRoom">room</option>
+  <option value="forDate">date</option>
+</select>
+
+<input type="text" id="userInput" value="">
+<button onclick="printErrors()">Submit</button>
+
   <table id="grid">
 
   </table>
@@ -24,26 +33,11 @@
 
 <div id="selectors">
 
-<select id="selector">
-  <option value="forRoom">room</option>
-  <option value="forDate">date</option>
-</select>
 
-<input type="text" id="userInput" value="">
-
-<input type="button" id ="submit" value="Submit" onclick="printErrors()">
 
 </div>
 
-<br>
-
-<div id="output"></div>
-
-<script src="errorCheck.js"</script>
-
-
-<br>
-<br>
+<!--<div id="output"></div> -->
 
 <button onclick="backwardClick()"><</button>
 <button onclick="forwardClick()">></button>
