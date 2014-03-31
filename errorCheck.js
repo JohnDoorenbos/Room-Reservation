@@ -45,6 +45,7 @@ function searchArray(arr, obj) { //this function returns true if obj is in arr
 	}
 
     }
+}
 
 function errorCheckForDate() {
 
@@ -97,4 +98,5 @@ function printErrors() { //actually prints the error
     //var document.getElementById("output").innterHTML = ""
     //var document.getElementById("output").innerHTML = checkForInputErrors()
     x = "cat"
+
 }

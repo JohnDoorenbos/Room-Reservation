@@ -245,3 +245,16 @@ var gridIndicator = undefined //Indicates which grid is displayed
 
 
 var selectorData = document.getElementById("selector")
+
+
+
+
+
+
+var selectorData = document.getElementById("selector").value
+var inputArea = document.getElementById("input")
+
+var input = document.createElement("input")
+input.type = "text"
+input.className = "css-class-name"
+input.append(input)
